@@ -153,7 +153,6 @@ expect(res.body).toHaveProperty('error', 'No hay ventas');
 });
 
 //--------------------TDD DE MODELS-------------------------------
-
 describe('Clase Pasteleria', () => {
     test('Muffin de chocolate debe devolver su precioBase ($2500)', () => {
         const muffin = new Pasteleria(19, 'Muffin de chocolate', 2500);
