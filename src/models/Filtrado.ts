@@ -1,11 +1,11 @@
 import { Producto } from './Producto';
 
 export class Filtrado extends Producto {
-  tamano: string; 
+  tamano: string;
   variedad: string;
 
   constructor(id: number, nombre: string, tamano: string, variedad: string) {
-    super(id, nombre, 3200); 
+    super(id, nombre, 3200, 'filtrado'); 
     this.tamano = tamano;
     this.variedad = variedad;
   }
