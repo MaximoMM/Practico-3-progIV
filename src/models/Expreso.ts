@@ -1,15 +1,16 @@
 import { Producto } from './Producto';
 
 export class Expreso extends Producto {
-  tamano: string; // 'el tamaño del cafe'
-  variedad: string; // 'de donde es el grano de cafe'
+  tamano: string;
+  variedad: string;
 
   constructor(id: number, nombre: string, tamano: string, variedad: string) {
-    super(id, nombre, 2500);
+    super(id, nombre, 2500, 'expreso'); 
     this.tamano = tamano;
     this.variedad = variedad;
+    this.precio = this.calcularPrecio(); 
   }
-
+  
   calcularPrecio(): number {
     let gramos = 0;
     if (this.tamano === 'Pocillo') gramos = 18;
@@ -21,7 +22,6 @@ export class Expreso extends Producto {
     else if (this.variedad === 'Colombia') precioPorGramos = 180;
     else if (this.variedad === 'Etiopía') precioPorGramos = 240;
 
-    const costoCafe = gramos * precioPorGramos;
-    return this.precioBase + costoCafe;
+    return this.precioBase + (gramos * precioPorGramos);
   }
 }
