@@ -1,12 +1,19 @@
-import { Producto } from '../../src/models/Producto'; 
+export abstract class Producto {
+  nombre: string;
+  precioBase: number;
+  id: number;
+  tipo: string; 
 
-class ProductoMock extends Producto {
-  constructor() { super(1, 'Test', 100, 'expreso'); }
-  calcularPrecio() { return 150; }
+  constructor(id: number, nombre: string, precioBase: number, tipo: string) {
+    this.id = id;
+    this.nombre = nombre;
+    this.precioBase = precioBase;
+    this.tipo = tipo;
+  }
+  
+  abstract calcularPrecio(): number;
+
+  get precio(): number {
+    return this.calcularPrecio();
+  }
 }
-
-it('Producto debe inicializarse con un tipo y exponer la propiedad precio', () => {
-  const p = new ProductoMock();
-  expect(p.tipo).toBe('expreso');
-  expect(p.precio).toBe(150);
-});
