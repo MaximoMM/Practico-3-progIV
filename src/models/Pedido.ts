@@ -1,32 +1,13 @@
-import { Producto } from './Producto';
+import { Pedido, ItemPedido } from '../src/models/Pedido'; 
 
-export interface ItemPedido {
-  productoId: number;
-  cantidad: number;
-  producto?: Producto;
-}
+it('Pedido debe aceptar un mesaId opcional según el contrato del TP3', () => {
+  const items: ItemPedido[] = [{ productoId: 1, cantidad: 1 }];
+  
 
-export class Pedido {
-  id: number;
-  items: ItemPedido[];
-  estado: string;
-  mesaId?: number; // Propiedad agregada
+  const pedidoConMesa = new Pedido(1, items, 'Pendiente', 4);
 
-  constructor(id: number, items: ItemPedido[], estado: string = 'Pendiente', mesaId?: number) {
-    this.id = id;
-    this.items = items;
-    this.estado = estado;
-    this.mesaId = mesaId;
-  }
+  const pedidoSinMesa = new Pedido(2, items, 'Pendiente');
 
-  calcularTotal(productosDisponibles: Producto[]): number {
-    let total = 0;
-    for (const item of this.items) {
-      const prod = productosDisponibles.find(p => p.id === item.productoId);
-      if (prod) {
-        total += prod.calcularPrecio() * item.cantidad;
-      }
-    }
-    return total;
-  }
-}
+  expect(pedidoConMesa.mesaId).toBe(4);
+  expect(pedidoSinMesa.mesaId).toBeUndefined();
+});
