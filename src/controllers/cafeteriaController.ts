@@ -3,17 +3,28 @@ import { productos, pedidos } from '../data/data';
 import { Pedido } from '../models/Pedido';
 
 export const getProductos = (req: Request, res: Response): void => {
-    res.status(200).json(productos);
+    const productosConDetalle = productos.map(p => ({
+        ...p,
+        precio: p.calcularPrecio(),
+        tipo: p.constructor.name.toLowerCase()
+    }));
+    res.status(200).json(productosConDetalle);
 };
 
 export const getProductoById = (req: Request, res: Response): void => {
     const id = parseInt(req.params.id);
     const producto = productos.find(p => p.id === id);
+    
     if (!producto) {
         res.status(404).json({ error: 'Producto no encontrado' });
         return;
     }
-    res.status(200).json(producto);
+    
+    res.status(200).json({
+        ...producto,
+        precio: producto.calcularPrecio(),
+        tipo: producto.constructor.name.toLowerCase()
+    });
 };
 
 export const crearPedido = (req: Request, res: Response): void => {
