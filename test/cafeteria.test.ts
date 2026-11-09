@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { describe, test, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import app from '../app';
