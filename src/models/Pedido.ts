@@ -25,8 +25,7 @@ export class Pedido {
     for (const item of this.items) {
       const prod = productosDisponibles.find(p => p.id === item.productoId);
       if (prod) {
-        // Refactor: usamos el getter 'precio'
-        total += prod.precio * item.cantidad; 
+        total += prod.calcularPrecio() * item.cantidad;
       }
     }
     return total;
