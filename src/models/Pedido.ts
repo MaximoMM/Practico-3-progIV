@@ -10,7 +10,7 @@ export class Pedido {
   id: number;
   items: ItemPedido[];
   estado: string;
-  mesaId?: number; // Propiedad agregada
+  mesaId?: number;
 
   constructor(id: number, items: ItemPedido[], estado: string = 'Pendiente', mesaId?: number) {
     this.id = id;
@@ -20,13 +20,9 @@ export class Pedido {
   }
 
   calcularTotal(productosDisponibles: Producto[]): number {
-    let total = 0;
-    for (const item of this.items) {
+    return this.items.reduce((total, item) => {
       const prod = productosDisponibles.find(p => p.id === item.productoId);
-      if (prod) {
-        total += prod.calcularPrecio() * item.cantidad;
-      }
-    }
-    return total;
+      return total + (prod ? prod.calcularPrecio() * item.cantidad : 0);
+    }, 0);
   }
 }
