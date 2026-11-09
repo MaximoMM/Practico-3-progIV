@@ -12,20 +12,16 @@ export class Filtrado extends Producto {
 
   calcularPrecio(): number {
     let gramos = 0;
-    switch (this.tamano) {
-      case 'Pocillo': gramos = 6; break;
-      case 'Mediano': gramos = 15; break;
-      case 'Taza grande': gramos = 25; break;
-    }
+    if (this.tamano === 'Pocillo') gramos = 6;
+    else if (this.tamano === 'Mediano') gramos = 15;
+    else if (this.tamano === 'Taza grande') gramos = 25;
 
     let precioPorGramos = 0;
-    switch (this.variedad) {
-      case 'Brasil': precioPorGramos = 140; break;
-      case 'Colombia': precioPorGramos = 180; break;
-      case 'Etiopía': precioPorGramos = 240; break;
-    }
+    if (this.variedad === 'Brasil') precioPorGramos = 140;
+    else if (this.variedad === 'Colombia') precioPorGramos = 180;
+    else if (this.variedad === 'Etiopía') precioPorGramos = 240;
 
-    // Refactor mini: calculamos y retornamos en la misma línea
-    return this.precioBase + (gramos * precioPorGramos);
+    const costoCafe = gramos * precioPorGramos;
+    return this.precioBase + costoCafe;
   }
 }
