@@ -1,6 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import app from '../app';
+import { Expreso } from '../src/models/Expreso';
+import { Filtrado } from '../src/models/Filtrado';
+import { Pasteleria } from '../src/models/Pasteleria';
+import { Pedido } from '../src/models/Pedido';
+import { productos, pedidos } from '../src/data/data';
 
 describe('GET /productos', () => {
   it('Debe devolver la lista de productos con su precio calculado y tipo', async () => {

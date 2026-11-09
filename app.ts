@@ -1,26 +1,21 @@
-import express from 'express';
-import cors from 'cors';
+import express, { Application, Request, Response } from 'express';
 import cafeteriaRoutes from './src/routes/cafeteriaRoutes';
 
-const app = express();
+const app: Application = express();
 
-app.use(cors());
 app.use(express.json());
+
+app.get('/', (_req: Request, res: Response) => {
+  res.status(200).json({
+    nombre: 'Cafetería Origen API',
+    estado: 'En línea'
+  });
+});
 
 app.use('/', cafeteriaRoutes);
 
-if (process.env.NODE_ENV === 'test') {
-    const testRouter = express.Router();
-
-    testRouter.post('/reset', (req, res) => {
-        res.status(200).send({ message: 'Base de datos reiniciada' });
-    });
-
-    testRouter.post('/seed', (req, res) => {
-        res.status(200).send({ message: 'Datos de prueba cargados' });
-    });
-
-    app.use('/__test__', testRouter);
-}
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ error: 'Ruta no encontrada en la API' });
+});
 
 export default app;
