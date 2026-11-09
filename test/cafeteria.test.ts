@@ -60,10 +60,39 @@ describe('GET /pedidos/:id', () => {
       .post('/pedidos')
       .send({ items: [{ productoId: 19, cantidad: 1 }] });
     const id = resPost.body.id;
-
+    
     const resGet = await request(app).get(`/pedidos/${id}`);
     expect(resGet.status).toBe(200);
     expect(resGet.body.id).toBe(id);
     expect(resGet.body.total).toBe(2500);
+  });
+});
+
+describe('GET /pedidos', () => {
+  it('Debe devolver la lista de todos los pedidos registrados', async () => {
+    const res = await request(app).get('/pedidos');
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+});
+
+describe('Reportes de Cafetería', () => {
+  it('Debe calcular la facturación total correctamente', async () => {
+    const res = await request(app).get('/reportes/facturacion');
+    expect(res.status).toBe(200);
+    expect(res.body.facturacionTotal).toBeDefined();
+    expect(typeof res.body.facturacionTotal).toBe('number');
+  });
+
+  it('Debe manejar error 404 si se busca un producto inexistente', async () => {
+    const res = await request(app).get('/productos/9999');
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBeDefined();
+  });
+
+  it('Debe manejar error 404 si se busca un pedido inexistente', async () => {
+    const res = await request(app).get('/pedidos/9999');
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBeDefined();
   });
 });
