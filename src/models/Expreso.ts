@@ -8,8 +8,9 @@ export class Expreso extends Producto {
     super(id, nombre, 2500, 'expreso'); 
     this.tamano = tamano;
     this.variedad = variedad;
+    this.precio = this.calcularPrecio(); 
   }
-
+  
   calcularPrecio(): number {
     let gramos = 0;
     if (this.tamano === 'Pocillo') gramos = 18;
@@ -21,7 +22,6 @@ export class Expreso extends Producto {
     else if (this.variedad === 'Colombia') precioPorGramos = 180;
     else if (this.variedad === 'Etiopía') precioPorGramos = 240;
 
-    const costoCafe = gramos * precioPorGramos;
-    return this.precioBase + costoCafe;
+    return this.precioBase + (gramos * precioPorGramos);
   }
 }
