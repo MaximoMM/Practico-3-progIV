@@ -13,6 +13,7 @@ export abstract class Producto {
 
   abstract calcularPrecio(): number;
 
+  // Getter: cuando algo pida "producto.precio", ejecuta esta función
   get precio(): number {
     return this.calcularPrecio();
   }

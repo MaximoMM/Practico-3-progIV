@@ -25,6 +25,7 @@ export class Filtrado extends Producto {
       case 'Etiopía': precioPorGramos = 240; break;
     }
 
+    // Refactor mini: calculamos y retornamos en la misma línea
     return this.precioBase + (gramos * precioPorGramos);
   }
 }
