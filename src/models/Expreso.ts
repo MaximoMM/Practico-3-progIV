@@ -1,8 +1,8 @@
 import { Producto } from './Producto';
 
 export class Expreso extends Producto {
-  tamano: string;
-  variedad: string;
+  tamano: string; 
+  variedad: string; 
 
   constructor(id: number, nombre: string, tamano: string, variedad: string) {
     super(id, nombre, 2500, 'expreso');
