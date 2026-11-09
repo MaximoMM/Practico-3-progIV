@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import { productos, pedidos } from '../data/data';
 import { Pedido } from '../models/Pedido';
+import { Producto } from '../models/Producto';
+
+const formatearProducto = (producto: Producto) => ({
+    ...producto,
+    precio: producto.calcularPrecio(),
+    tipo: producto.constructor.name.toLowerCase()
+});
 
 export const getProductos = (req: Request, res: Response): void => {
-    const productosConDetalle = productos.map(p => ({
-        ...p,
-        precio: p.calcularPrecio(),
-        tipo: p.constructor.name.toLowerCase()
-    }));
-    res.status(200).json(productosConDetalle);
+    res.status(200).json(productos.map(formatearProducto));
 };
 
 export const getProductoById = (req: Request, res: Response): void => {
@@ -20,11 +22,7 @@ export const getProductoById = (req: Request, res: Response): void => {
         return;
     }
     
-    res.status(200).json({
-        ...producto,
-        precio: producto.calcularPrecio(),
-        tipo: producto.constructor.name.toLowerCase()
-    });
+    res.status(200).json(formatearProducto(producto));
 };
 
 export const crearPedido = (req: Request, res: Response): void => {
