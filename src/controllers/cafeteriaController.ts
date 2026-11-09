@@ -26,11 +26,10 @@ export const getProductoById = (req: Request, res: Response): void => {
 };
 
 export const crearPedido = (req: Request, res: Response): void => {
-    const { items } = req.body;
+    const { items, mesaId } = req.body;
     const nuevoId = pedidos.length > 0 ? pedidos[pedidos.length - 1].id + 1 : 1;
     
-    const nuevoPedido = new Pedido(nuevoId, items);
-
+    const nuevoPedido = new Pedido(nuevoId, items, 'Pendiente', mesaId);
     const total = nuevoPedido.calcularTotal(productos);
     
     pedidos.push(nuevoPedido);
@@ -39,6 +38,7 @@ export const crearPedido = (req: Request, res: Response): void => {
         id: nuevoPedido.id,
         items: nuevoPedido.items,
         estado: nuevoPedido.estado,
+        mesaId: nuevoPedido.mesaId,
         total: total
     });
 };
@@ -54,7 +54,14 @@ export const getPedidoById = (req: Request, res: Response): void => {
         res.status(404).json({ error: 'Pedido no encontrado' });
         return;
     }
-    res.status(200).json(pedido);
+    
+    res.status(200).json({
+        id: pedido.id,
+        items: pedido.items,
+        estado: pedido.estado,
+        mesaId: pedido.mesaId,
+        total: pedido.calcularTotal(productos)
+    });
 };
 
 export const getFacturacion = (req: Request, res: Response): void => {
