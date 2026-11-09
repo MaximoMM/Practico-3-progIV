@@ -43,6 +43,18 @@ expect(filtrado.calcularPrecio()).toBe(9200);
     });
 });
 
+describe('Clase Pasteleria', () => {
+    test('Muffin de chocolate debe devolver su precioBase ($2500)', () => {
+const muffin = new Pasteleria(19, 'Muffin de chocolate', 2500);
+expect(muffin.calcularPrecio()).toBe(2500);
+    });
+
+    test('Torta selva negra debe devolver su precioBase ($4200)', () => {
+const torta = new Pasteleria(20, 'Torta selva negra', 4200);
+expect(torta.calcularPrecio()).toBe(4200);
+    });
+});
+
 describe('Clase Pedido', () => {
     test('calcularTotal() debe sumar correctamente (precioProducto * cantidad)', () => {
 const pedido = new Pedido(1, [
@@ -150,12 +162,4 @@ expect(res.status).toBe(404);
 expect(res.body).toHaveProperty('error', 'No hay ventas');
     });
 });
-});
-
-//--------------------TDD DE MODELS-------------------------------
-describe('Clase Pasteleria', () => {
-    test('Muffin de chocolate debe devolver su precioBase ($2500)', () => {
-        const muffin = new Pasteleria(19, 'Muffin de chocolate', 2500);
-        expect(muffin.calcularPrecio()).toBe(2500);
-    });
 });
