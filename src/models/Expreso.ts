@@ -1,27 +1,44 @@
 import { Producto } from './Producto';
 
 export class Expreso extends Producto {
-  tamano: string; // 'el tamaño del cafe'
-  variedad: string; // 'de donde es el grano de cafe'
+  tamano: string;
+  variedad: string;
 
   constructor(id: number, nombre: string, tamano: string, variedad: string) {
-    super(id, nombre, 2500);
+    super(id, nombre, 2500, 'expreso');
     this.tamano = tamano;
     this.variedad = variedad;
   }
 
   calcularPrecio(): number {
-    let gramos = 0;
-    if (this.tamano === 'Pocillo') gramos = 18;
-    else if (this.tamano === 'Mediano') gramos = 27;
-    else if (this.tamano === 'Taza grande') gramos = 36;
 
-    let precioPorGramos = 0;
-    if (this.variedad === 'Brasil') precioPorGramos = 140;
-    else if (this.variedad === 'Colombia') precioPorGramos = 180;
-    else if (this.variedad === 'Etiopía') precioPorGramos = 240;
+    const gramosPorTamano: Record<string, number> = {
+      'Pocillo': 18,
+      'Mediano': 27,
+      'Taza grande': 36
+    };
 
-    const costoCafe = gramos * precioPorGramos;
-    return this.precioBase + costoCafe;
+    const precioPorVariedad: Record<string, number> = {
+      'Brasil': 140,
+      'Colombia': 180,
+      'Etiopía': 240
+    };
+
+    const gramos = gramosPorTamano[this.tamano] || 0;
+    const precioPorGramos = precioPorVariedad[this.variedad] || 0;
+
+    return this.precioBase + (gramos * precioPorGramos);
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      nombre: this.nombre,
+      precioBase: this.precioBase,
+      tipo: this.tipo,
+      tamano: this.tamano,
+      variedad: this.variedad,
+      precio: this.calcularPrecio() 
+    };
   }
 }
