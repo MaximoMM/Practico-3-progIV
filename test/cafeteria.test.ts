@@ -61,7 +61,6 @@ describe('GET /pedidos/:id', () => {
       .send({ items: [{ productoId: 19, cantidad: 1 }] });
     const id = resPost.body.id;
 
-    // Luego lo consultamos
     const resGet = await request(app).get(`/pedidos/${id}`);
     expect(resGet.status).toBe(200);
     expect(resGet.body.id).toBe(id);

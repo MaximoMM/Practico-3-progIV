@@ -9,6 +9,14 @@ const formatearProducto = (producto: Producto) => ({
     tipo: producto.constructor.name.toLowerCase()
 });
 
+const formatearPedido = (pedido: Pedido) => ({
+    id: pedido.id,
+    items: pedido.items,
+    estado: pedido.estado,
+    mesaId: pedido.mesaId,
+    total: pedido.calcularTotal(productos)
+});
+
 export const getProductos = (req: Request, res: Response): void => {
     res.status(200).json(productos.map(formatearProducto));
 };
@@ -30,21 +38,13 @@ export const crearPedido = (req: Request, res: Response): void => {
     const nuevoId = pedidos.length > 0 ? pedidos[pedidos.length - 1].id + 1 : 1;
     
     const nuevoPedido = new Pedido(nuevoId, items, 'Pendiente', mesaId);
-    const total = nuevoPedido.calcularTotal(productos);
-    
     pedidos.push(nuevoPedido);
     
-    res.status(201).json({
-        id: nuevoPedido.id,
-        items: nuevoPedido.items,
-        estado: nuevoPedido.estado,
-        mesaId: nuevoPedido.mesaId,
-        total: total
-    });
+    res.status(201).json(formatearPedido(nuevoPedido));
 };
 
 export const getPedidos = (req: Request, res: Response): void => {
-    res.status(200).json(pedidos);
+    res.status(200).json(pedidos.map(formatearPedido));
 };
 
 export const getPedidoById = (req: Request, res: Response): void => {
@@ -54,14 +54,7 @@ export const getPedidoById = (req: Request, res: Response): void => {
         res.status(404).json({ error: 'Pedido no encontrado' });
         return;
     }
-    
-    res.status(200).json({
-        id: pedido.id,
-        items: pedido.items,
-        estado: pedido.estado,
-        mesaId: pedido.mesaId,
-        total: pedido.calcularTotal(productos)
-    });
+    res.status(200).json(formatearPedido(pedido));
 };
 
 export const getFacturacion = (req: Request, res: Response): void => {
