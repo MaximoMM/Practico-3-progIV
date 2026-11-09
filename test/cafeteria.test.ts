@@ -27,8 +27,44 @@ describe('GET /productos/:id', () => {
     expect(res.status).toBe(200);
     expect(res.body.id).toBe(1);
     expect(res.body.nombre).toBe('Expreso Pocillo Brasil');
-    
+
     expect(res.body.precio).toBe(5020); 
     expect(res.body.tipo).toBe('expreso');
+  });
+});
+
+describe('POST /pedidos', () => {
+  it('Debe crear un pedido con mesaId y devolverlo', async () => {
+    const res = await request(app)
+      .post('/pedidos')
+      .send({ mesaId: 4, items: [{ productoId: 1, cantidad: 2 }] });
+
+    expect(res.status).toBe(201);
+    expect(res.body.mesaId).toBe(4);
+    expect(res.body.total).toBeDefined();
+  });
+
+  it('Debe crear un pedido sin mesaId si es para llevar (opcional)', async () => {
+    const res = await request(app)
+      .post('/pedidos')
+      .send({ items: [{ productoId: 1, cantidad: 1 }] });
+
+    expect(res.status).toBe(201);
+    expect(res.body.mesaId).toBeUndefined();
+  });
+});
+
+describe('GET /pedidos/:id', () => {
+  it('Debe devolver el pedido incluyendo su total calculado', async () => {
+    const resPost = await request(app)
+      .post('/pedidos')
+      .send({ items: [{ productoId: 19, cantidad: 1 }] });
+    const id = resPost.body.id;
+
+    // Luego lo consultamos
+    const resGet = await request(app).get(`/pedidos/${id}`);
+    expect(resGet.status).toBe(200);
+    expect(resGet.body.id).toBe(id);
+    expect(resGet.body.total).toBe(2500);
   });
 });
