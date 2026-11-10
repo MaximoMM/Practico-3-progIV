@@ -5,21 +5,20 @@
 - Lucas Rojas
 - Tiago de Rosa
 
-## 🚀 Requisitos previos
+## Requisitos previos
 - Node.js instalado.
 - API del Parcial I actualizada con los cambios requeridos (`mesaId` opcional, rutas de precios y tipos en productos, control de errores y endpoints de test `/__test__/reset` y `/__test__/seed`).
 
 ---
 
-## 🛠️ Cómo levantar el proyecto
+## Cómo levantar el proyecto
 
 ### 1. Levantar el Backend (API)
 Desde la raíz del repositorio:
 \`\`\`bash
 npm install
-npm run start
+npm run dev
 \`\`\`
-*(La API correrá por defecto en el puerto 3000).*
 
 ### 2. Levantar el Frontend
 Entrada la carpeta del front y ejecutar el entorno de desarrollo con Vite:
@@ -32,7 +31,7 @@ npm run dev
 
 ---
 
-## 🧪 Cómo correr los Tests
+## Cómo correr los Tests
 
 ### Backend y Unitarios/Componentes/Integración (Frontend)
 Para correr los tests unitarios, de componentes y de integración (Vitest) sin necesidad de tener la API levantada:
@@ -49,7 +48,7 @@ npm run test:e2e
 
 ---
 
-## 📄 Contrato de la API (Endpoints utilizados)
+## Contrato de la API (Endpoints utilizados)
 
 - **`GET /productos`**: Devuelve la lista completa de productos con su `id`, `nombre`, `precio` calculado y `tipo` (`expreso`, `filtrado` o `pasteleria`).
 - **`GET /productos/:id`**: Devuelve el detalle de un producto específico.
