@@ -15,18 +15,18 @@
 
 ### 1. Levantar el Backend (API)
 Desde la raíz del repositorio:
-\`\`\`bash
+```bash
 npm install
 npm run dev
-\`\`\`
+```
 
 ### 2. Levantar el Frontend
 Entrada la carpeta del front y ejecutar el entorno de desarrollo con Vite:
-\`\`\`bash
+```bash
 cd frontend
 npm install
 npm run dev
-\`\`\`
+```
 *(El front correrá en `http://localhost:5173` y redirigirá las peticiones `/api` al backend mediante el proxy configurado).*
 
 ---
@@ -35,16 +35,16 @@ npm run dev
 
 ### Backend y Unitarios/Componentes/Integración (Frontend)
 Para correr los tests unitarios, de componentes y de integración (Vitest) sin necesidad de tener la API levantada:
-\`\`\`bash
+```bash
 # En la raíz o en la carpeta frontend según corresponda
 npm test
-\`\`\`
+```
 
 ### Tests End-to-End (E2E con Playwright)
 Para correr los tests E2E asegurándote de que el front y la API estén funcionando:
-\`\`\`bash
+```bash
 npm run test:e2e
-\`\`\`
+```
 
 ---
 
