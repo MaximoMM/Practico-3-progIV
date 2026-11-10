@@ -1,5 +1,4 @@
-import { describe, it, expect } from 'vitest';
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, it, test, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import app from '../app';
 import { Expreso } from '../src/models/Expreso';
